@@ -14,9 +14,14 @@ color white = color(255);
 int numPixels;
 Capture video;
 
+int letterSize = 20;
+int columnWidth = 30;
+int columnQty;
+
 void setup() {
   size(640, 480, P2D); // Change size to 320 x 240 if too slow at 640 x 480
   strokeWeight(5);
+  columnQty = width/columnWidth;
   // Uses the default video input, see the reference if this causes an error
   video = new Capture(this, width, height);
   video.start();  
@@ -29,7 +34,7 @@ void draw() {
   if (video.available()) {
     video.read();
     video.loadPixels();
-    int threshold = 127; // Set the threshold value
+    int threshold = 66; // Set the threshold value
     float pixelBrightness; // Declare variable to store a pixel's color
     // Turn each pixel in the video frame black or white depending on its brightness
     loadPixels();
@@ -55,22 +60,49 @@ void draw() {
       fill(white); // set the fill to white
     }
     ellipse(mouseX, mouseY, 20, 20);
-    
+
     someTests();
-    
-  }
-}
-int letterSize = 20;
-int columnWidth = 30;
-int columnQty = width/columnWidth;
-void someTests(){
-  noStroke();
-  fill(0,255,0);
-  for(int i = 0; i<columnQty;i++){
-  fallingLetter(i,50,42);
   }
 }
 
-void fallingLetter(int letterIndex, float letterY, int letter){
-  ellipse(letterIndex*columnWidth, letterY, letterSize, letterSize);
+void someTests() {
+  noStroke();
+  //println(columnQty);
+  for (int i = 0; i<columnQty;i++) {
+    int hardStop =sampleStripe(i);
+    fallingLetter(i, 50, i);
+  }
 }
+
+int sampleStripe(int stripeIndex) {
+  int sampleX= stripeIndex*letterIndex*columnWidth+letterSize;
+  int sampleY = 0;
+  int testValue;
+  int sampleIndex;
+  
+  sampleIndex = sampleX+(width*sampleY)//?????
+  
+  if (brightness(video.pixels[sampleIndex]) > threshold){
+     
+
+  else if (sampleY > height) {
+    sampleY = height
+
+      else sampleY ++;
+      return sampleY;
+      
+//      is it black at 0?
+//      sample y++
+//      is it black at 1?
+//      yes!
+//      return 1.
+  }
+}
+
+void fallingLetter(int letterIndex, float letterY, int letter) {
+  fill(0, 255, 0);
+  ellipse(letterIndex*columnWidth+letterSize, letterY, letterSize, letterSize);
+  fill(0);
+  text(letter, letterIndex*columnWidth+letterSize/2, letterY+letterSize/4);
+}
+
