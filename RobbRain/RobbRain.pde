@@ -7,11 +7,6 @@
  */
 
 
-
-
-int sampleY = 0 ; //ititialized at very top, remeber to loop
-
-
 import processing.video.*;
 
 color black = color(0);
@@ -65,8 +60,9 @@ void draw() {
     }
     ellipse(mouseX, mouseY, 20, 20);
 
-    //someTests();
-    okaygetthis(4);
+     for (int i = 0; i<columnQty;i++) {
+    okaygetthis(i);
+     }
   }
 }
 
@@ -76,30 +72,27 @@ void draw() {
 
 
 
-void okaygetthis(int stripeIndexTemp) {
-  int stripeIndex = 3;
+void okaygetthis(int stripeIndex) {
+  //int stripeIndex = 3;
   int sampleX= stripeIndex*columnWidth+letterSize; //which pixel column?
-  
+int sampleY = 0 ; 
+
   int threshold = 66; // Set the threshold valu
 
 
   int testValue = get(sampleX, sampleY);
   //println(testValue);
-   if (sampleY > height) {//loop?
+  if (sampleY > height) {//loop?
     sampleY = 0;
   }
   if (testValue==-1) {
-     sampleY ++;
-    //println("neg one, sorry");
-  }
-  
-   
-  else 
-  {
-   
-    //println("it's big!");
+    sampleY ++;
   }
 
+  else {
+
+  }
+ noStroke();
   fill(255, 0, 0);//red
   ellipse( sampleX, sampleY, 20, 20); //dot
 }
@@ -114,22 +107,7 @@ void okaygetthis(int stripeIndexTemp) {
 //  }
 //}
 //
-//
-//
-//
-//
-//
-//int sampleStripe(int stripeIndex) {/// given the stripe index, return the y value for that index
-//
-//    //      is it black at 0?
-//  //      sample y++
-//  //      is it black at 1?
-//  //      yes!
-//  return 1;
-//}
-//
-//
-//
+
 //void fallingLetter(int letterIndex, float letterY, int letter) {
 //  fill(0, 255, 0);
 //  ellipse(letterIndex*columnWidth+letterSize, letterY, letterSize, letterSize);
