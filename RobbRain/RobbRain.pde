@@ -7,6 +7,11 @@
  */
 
 
+
+
+int sampleY = 0 ; //ititialized at very top, remeber to loop
+
+
 import processing.video.*;
 
 color black = color(0);
@@ -51,7 +56,6 @@ void draw() {
     // Test a location to see where it is contained. Fetch the pixel at the test
     // location (the cursor), and compute its brightness
     int testValue = get(mouseX, mouseY);
-    //println(testValue);
     float testBrightness = brightness(testValue);
     if (testBrightness > threshold) { // If the test location is brighter than
       fill(black); // the threshold set the fill to black
@@ -61,48 +65,75 @@ void draw() {
     }
     ellipse(mouseX, mouseY, 20, 20);
 
-    someTests();
+    //someTests();
+    okaygetthis(4);
   }
 }
 
-void someTests() {
-  noStroke();
-  //println(columnQty);
-  for (int i = 0; i<columnQty;i++) {
-    int hardStop =sampleStripe(i);
-    fallingLetter(i, 50, i);
-  }
-}
 
-int sampleStripe(int stripeIndex) {
-  int sampleX= stripeIndex*letterIndex*columnWidth+letterSize;
-  int sampleY = 0;
-  int testValue;
-  int sampleIndex;
+
+
+
+
+
+void okaygetthis(int stripeIndexTemp) {
+  int stripeIndex = 3;
+  int sampleX= stripeIndex*columnWidth+letterSize; //which pixel column?
   
-  sampleIndex = sampleX+(width*sampleY)//?????
-  
-  if (brightness(video.pixels[sampleIndex]) > threshold){
-     
+  int threshold = 66; // Set the threshold valu
 
-  else if (sampleY > height) {
-    sampleY = height
 
-      else sampleY ++;
-      return sampleY;
-      
-//      is it black at 0?
-//      sample y++
-//      is it black at 1?
-//      yes!
-//      return 1.
+  int testValue = get(sampleX, sampleY);
+  //println(testValue);
+   if (sampleY > height) {//loop?
+    sampleY = 0;
   }
+  if (testValue==-1) {
+     sampleY ++;
+    //println("neg one, sorry");
+  }
+  
+   
+  else 
+  {
+   
+    //println("it's big!");
+  }
+
+  fill(255, 0, 0);//red
+  ellipse( sampleX, sampleY, 20, 20); //dot
 }
 
-void fallingLetter(int letterIndex, float letterY, int letter) {
-  fill(0, 255, 0);
-  ellipse(letterIndex*columnWidth+letterSize, letterY, letterSize, letterSize);
-  fill(0);
-  text(letter, letterIndex*columnWidth+letterSize/2, letterY+letterSize/4);
-}
+
+//
+//  noStroke();
+//  //println(columnQty);
+//  for (int i = 0; i<columnQty;i++) {
+//    int hardStop =sampleStripe(i);
+//    fallingLetter(i, 50, i);
+//  }
+//}
+//
+//
+//
+//
+//
+//
+//int sampleStripe(int stripeIndex) {/// given the stripe index, return the y value for that index
+//
+//    //      is it black at 0?
+//  //      sample y++
+//  //      is it black at 1?
+//  //      yes!
+//  return 1;
+//}
+//
+//
+//
+//void fallingLetter(int letterIndex, float letterY, int letter) {
+//  fill(0, 255, 0);
+//  ellipse(letterIndex*columnWidth+letterSize, letterY, letterSize, letterSize);
+//  fill(0);
+//  text(letter, letterIndex*columnWidth+letterSize/2, letterY+letterSize/4);
+//}
 
