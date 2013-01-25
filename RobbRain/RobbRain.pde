@@ -5,13 +5,15 @@ import processing.video.*; ///add the library
 
 Capture video;
 
-int threshold = 99; //brightness value to count as dark
+int threshold = 122; //brightness value to count as dark
 int letterSize = 20; //diameter of circles, real or imaginary that bound the falling shapes
-int columnWidth = 30; //how wide you want the columns to be
+int columnWidth = 20; //how wide you want the columns to be
 int columnQty; //dependent on above
 int numPix; //dependent, how many pixels are there?
 int[] fallingY; //array of all the y values of our objects
+String poem = "Trust not he who winces in rain.";
 
+//char[] poem = { o,h, };  // Alternate syntax
 
 void setup() {
   size(640, 480, P2D); // Change size to 320 x 240 if too slow at 640 x 480
@@ -21,7 +23,7 @@ void setup() {
   noCursor(); //cursors are for sissys
   noStroke();//as are strokes
   smooth();//doesn't work.
-
+println(poem.length());
   numPix = video.width*video.height; //calc the pixel qty
   columnQty = width/columnWidth; //calc the column qty
 
@@ -59,17 +61,18 @@ void draw() {
       if (fallingY[i] > height||fallingY[i]<0) {//if it falls off the bottom or top, it should go again. no giving up
         fallingY[i] = 10;
       }
-      fallingLetter(sampleX, fallingY[i], i); ///draws the thing.
+      fallingLetter(sampleX, fallingY[i], poem.charAt(i),i); ///draws the thing.
     }
+    if(mousePressed){setup();}////cute.. puts the letters at top if click.
   }
 }
 
 
-void fallingLetter(int letterX, int letterY, int letter) {
-  fill(map(letter, 0, 21, 0, 255), 255, 255);
+void fallingLetter(int letterX, int letterY, char letter, int i) {
+  fill(map(i, 0, columnQty, 0, 255), 255, 255, 100);
   ellipse(letterX, letterY, letterSize, letterSize);
   fill(0);
-  text(letter, letterX-letterSize/2, letterY+letterSize/5);
+  text(letter, letterX-letterSize/3, letterY+letterSize/5);
 }
 
 
